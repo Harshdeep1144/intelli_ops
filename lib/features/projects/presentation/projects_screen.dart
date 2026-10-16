@@ -1,52 +1,149 @@
 import 'package:flutter/material.dart';
-import 'package:liquid_glass_widgets/liquid_glass_widgets.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:lucide_icons_flutter/lucide_icons.dart';
 
-class ProjectsScreen extends StatelessWidget {
+class ProjectsScreen extends ConsumerWidget {
   const ProjectsScreen({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return Material(
-      type: MaterialType.transparency,
+      color: const Color(0xFFE6ECE9),
       child: SafeArea(
         top: true,
         bottom: false,
-        child: ListView(
+        child: SingleChildScrollView(
           padding: const EdgeInsets.all(16.0),
-          children: [
-            Text(
-              'Active Projects',
-              style: Theme.of(context).textTheme.headlineMedium?.copyWith(
-                    color: const Color(0xFF0F172A),
-                    fontWeight: FontWeight.bold,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              // Top Profile Row
+              Row(
+                children: [
+                  const CircleAvatar(
+                    radius: 20,
+                    backgroundColor: Color(0xFF0D5C53),
+                    child: Icon(LucideIcons.user, size: 20, color: Colors.white),
                   ),
-            ),
-            const SizedBox(height: 16),
-            GlassCard(
-              child: ListTile(
-                leading: const Icon(LucideIcons.smartphone, color: Colors.blueAccent),
-                title: const Text('Mobile App Redesign', style: TextStyle(color: Color(0xFF0F172A), fontWeight: FontWeight.bold)),
-                subtitle: const Text('UI/UX overhaul & glassmorphism update', style: TextStyle(color: Color(0xFF64748B))),
-                trailing: Chip(
-                  backgroundColor: Colors.blue.withValues(alpha: 0.1),
-                  label: const Text('In Progress', style: TextStyle(color: Color(0xFF1E3A8A))),
+                  const SizedBox(width: 12),
+                  const Expanded(
+                    child: Text(
+                      'Harsh Deep',
+                      style: TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
+                        color: Color(0xFF0F172A),
+                      ),
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 20),
+              // Search Bar
+              Container(
+                padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(16),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black.withValues(alpha: 0.03),
+                      blurRadius: 10,
+                      offset: const Offset(0, 2),
+                    ),
+                  ],
+                ),
+                child: Row(
+                  children: const [
+                    Icon(LucideIcons.search, color: Color(0xFF64748B), size: 20),
+                    SizedBox(width: 12),
+                    Expanded(
+                      child: Text(
+                        'Search projects',
+                        style: TextStyle(color: Color(0xFF94A3B8), fontSize: 15),
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                    ),
+                  ],
                 ),
               ),
-            ),
-            const SizedBox(height: 12),
-            GlassCard(
-              child: ListTile(
-                leading: const Icon(LucideIcons.cloud, color: Colors.purpleAccent),
-                title: const Text('Cloud Infrastructure Migration', style: TextStyle(color: Color(0xFF0F172A), fontWeight: FontWeight.bold)),
-                subtitle: const Text('Moving microservices to Kubernetes', style: TextStyle(color: Color(0xFF64748B))),
-                trailing: Chip(
-                  backgroundColor: Colors.purple.withValues(alpha: 0.1),
-                  label: const Text('Planning', style: TextStyle(color: Color(0xFF6B21A8))),
+              const SizedBox(height: 24),
+              const Text(
+                'Projects',
+                style: TextStyle(
+                  fontSize: 22,
+                  fontWeight: FontWeight.bold,
+                  color: Color(0xFF0F172A),
                 ),
               ),
-            ),
-          ],
+              const SizedBox(height: 16),
+              Container(
+                padding: const EdgeInsets.all(16),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(20),
+                  boxShadow: [
+                    BoxShadow(color: Colors.black.withValues(alpha: 0.02), blurRadius: 10, offset: const Offset(0, 4)),
+                  ],
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: const [
+                        Expanded(
+                          child: Text(
+                            'Mobile App Redesign',
+                            style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Color(0xFF0F172A)),
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                        ),
+                        SizedBox(width: 8),
+                        Chip(label: Text('In Progress')),
+                      ],
+                    ),
+                    const SizedBox(height: 8),
+                    const Text('UI/UX overhaul & glassmorphism update', style: TextStyle(color: Color(0xFF64748B), fontSize: 13)),
+                  ],
+                ),
+              ),
+              const SizedBox(height: 16),
+              Container(
+                padding: const EdgeInsets.all(16),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(20),
+                  boxShadow: [
+                    BoxShadow(color: Colors.black.withValues(alpha: 0.02), blurRadius: 10, offset: const Offset(0, 4)),
+                  ],
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: const [
+                        Expanded(
+                          child: Text(
+                            'Cloud Infrastructure Migration',
+                            style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Color(0xFF0F172A)),
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                        ),
+                        SizedBox(width: 8),
+                        Chip(label: Text('Planning')),
+                      ],
+                    ),
+                    const SizedBox(height: 8),
+                    const Text('Moving microservices to Kubernetes clusters', style: TextStyle(color: Color(0xFF64748B), fontSize: 13)),
+                  ],
+                ),
+              ),
+              const SizedBox(height: 90),
+            ],
+          ),
         ),
       ),
     );

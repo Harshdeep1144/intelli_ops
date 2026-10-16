@@ -26,15 +26,17 @@ class MainScaffold extends ConsumerWidget {
       settings: LiquidGlassSettings.ios27Light,
       edgeToEdge: true,
       statusBarStyle: GlassStatusBarStyle.dark,
-      backgroundColor: Colors.white,
+      backgroundColor: const Color(0xFFE6ECE9), // Pale mint/sage background matching the reference image
       appBar: GlassAppBar(
         actions: [
-          IconButton(
-            icon: const Icon(LucideIcons.logOut, color: Color(0xFF0F172A)),
-            onPressed: () async {
-              await ref.read(authRepositoryProvider).signOut();
-            },
-            tooltip: 'Logout',
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 8.0),
+            child: GlassIconButton(
+              icon: const Icon(LucideIcons.logOut, color: Color(0xFF0F172A), size: 20),
+              onPressed: () async {
+                await ref.read(authRepositoryProvider).signOut();
+              },
+            ),
           ),
         ],
       ),
@@ -43,21 +45,35 @@ class MainScaffold extends ConsumerWidget {
         settings: LiquidGlassSettings.ios27Light,
         selectedIndex: navigationShell.currentIndex,
         onTabSelected: _goBranch,
+        labelFontSize: 9.5,
+        selectedLabelStyle: const TextStyle(
+          fontSize: 9.5,
+          decoration: TextDecoration.none,
+          fontWeight: FontWeight.w600,
+          color: Color(0xFF0F172A),
+        ),
+        unselectedLabelStyle: const TextStyle(
+          fontSize: 9.5,
+          decoration: TextDecoration.none,
+          fontWeight: FontWeight.normal,
+          color: Color(0xFF64748B),
+        ),
         tabs: const [
           GlassTab(
             icon: Icon(LucideIcons.layoutDashboard),
+            label: 'Dashboard',
           ),
           GlassTab(
             icon: Icon(LucideIcons.folderKanban),
-          ),
-          GlassTab(
-            icon: Icon(LucideIcons.users),
+            label: 'Projects',
           ),
           GlassTab(
             icon: Icon(LucideIcons.calendar),
+            label: 'Meetings',
           ),
           GlassTab(
             icon: Icon(LucideIcons.sparkles),
+            label: 'Ask AI',
           ),
         ],
       ),

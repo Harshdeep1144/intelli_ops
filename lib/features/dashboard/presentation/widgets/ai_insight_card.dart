@@ -71,10 +71,21 @@ class AiInsightCard extends StatelessWidget {
               const SizedBox(height: 12),
               Align(
                 alignment: Alignment.centerRight,
-                child: TextButton.icon(
-                  onPressed: onActionPressed,
-                  icon: const Icon(LucideIcons.arrowRight, size: 16, color: Color(0xFF1E3A8A)),
-                  label: Text(actionText!, style: const TextStyle(color: Color(0xFF1E3A8A), fontWeight: FontWeight.w600)),
+                child: GlassButton.custom(
+                  onTap: onActionPressed!,
+                  height: 36,
+                  shape: const LiquidRoundedRectangle(borderRadius: 8),
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 12.0),
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Text(actionText!, style: const TextStyle(color: Color(0xFF1E3A8A), fontWeight: FontWeight.w600, fontSize: 13)),
+                        const SizedBox(width: 6),
+                        const Icon(LucideIcons.arrowRight, size: 14, color: Color(0xFF1E3A8A)),
+                      ],
+                    ),
+                  ),
                 ),
               ),
             ]

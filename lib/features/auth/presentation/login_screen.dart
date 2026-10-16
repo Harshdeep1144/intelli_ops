@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:liquid_glass_widgets/liquid_glass_widgets.dart';
 import '../data/auth_repository.dart';
 
 class LoginScreen extends ConsumerStatefulWidget {
@@ -75,87 +74,180 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return GlassScaffold(
-      settings: LiquidGlassSettings.ios27Light,
-      edgeToEdge: true,
-      statusBarStyle: GlassStatusBarStyle.dark,
+    return Scaffold(
       backgroundColor: Colors.white,
-      appBar: const GlassAppBar(
-        title: Text('Login', style: TextStyle(color: Color(0xFF0F172A), fontWeight: FontWeight.bold)),
-      ),
-      body: Material(
-        type: MaterialType.transparency,
-        child: SafeArea(
-          child: Center(
-            child: SingleChildScrollView(
-              padding: const EdgeInsets.all(24.0),
-              child: GlassCard(
-                child: Padding(
-                  padding: const EdgeInsets.all(16.0),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
-                    children: [
-                      const Text(
-                        'Welcome Back',
-                        style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold, color: Color(0xFF0F172A)),
-                        textAlign: TextAlign.center,
-                      ),
-                      const SizedBox(height: 32),
-                      if (_errorMessage != null)
-                        Padding(
-                          padding: const EdgeInsets.only(bottom: 16.0),
-                          child: Text(
-                            _errorMessage!,
-                            style: const TextStyle(color: Colors.red),
-                            textAlign: TextAlign.center,
+      body: SafeArea(
+        child: Center(
+          child: SingleChildScrollView(
+            padding: const EdgeInsets.symmetric(horizontal: 32.0),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                // Logo / Title
+                const Text(
+                  'IntelliOps',
+                  style: TextStyle(
+                    fontSize: 42,
+                    fontWeight: FontWeight.w400,
+                    color: Color(0xFF0F172A),
+                    letterSpacing: 1.2,
+                  ),
+                  textAlign: TextAlign.center,
+                ),
+                const SizedBox(height: 40),
+                if (_errorMessage != null)
+                  Padding(
+                    padding: const EdgeInsets.only(bottom: 16.0),
+                    child: Text(
+                      _errorMessage!,
+                      style: const TextStyle(color: Colors.red, fontSize: 13),
+                      textAlign: TextAlign.center,
+                    ),
+                  ),
+                // Email / Username input
+                TextField(
+                  controller: _emailController,
+                  decoration: InputDecoration(
+                    hintText: 'Phone number, email or username',
+                    hintStyle: const TextStyle(color: Color(0xFF9CA3AF), fontSize: 14),
+                    filled: true,
+                    fillColor: const Color(0xFFFAFAFA),
+                    contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(8),
+                      borderSide: const BorderSide(color: Color(0xFFE5E7EB), width: 1),
+                    ),
+                    enabledBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(8),
+                      borderSide: const BorderSide(color: Color(0xFFE5E7EB), width: 1),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(8),
+                      borderSide: const BorderSide(color: Color(0xFF9CA3AF), width: 1),
+                    ),
+                  ),
+                  keyboardType: TextInputType.emailAddress,
+                ),
+                const SizedBox(height: 12),
+                // Password input
+                TextField(
+                  controller: _passwordController,
+                  decoration: InputDecoration(
+                    hintText: 'Password',
+                    hintStyle: const TextStyle(color: Color(0xFF9CA3AF), fontSize: 14),
+                    filled: true,
+                    fillColor: const Color(0xFFFAFAFA),
+                    contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(8),
+                      borderSide: const BorderSide(color: Color(0xFFE5E7EB), width: 1),
+                    ),
+                    enabledBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(8),
+                      borderSide: const BorderSide(color: Color(0xFFE5E7EB), width: 1),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(8),
+                      borderSide: const BorderSide(color: Color(0xFF9CA3AF), width: 1),
+                    ),
+                  ),
+                  obscureText: true,
+                ),
+                const SizedBox(height: 16),
+                // Log In Button (Solid Blue, No Liquid Glass)
+                _isLoading
+                    ? const Center(child: CircularProgressIndicator())
+                    : SizedBox(
+                        height: 44,
+                        child: ElevatedButton(
+                          onPressed: _loginWithEmail,
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: const Color(0xFF0095F6),
+                            foregroundColor: Colors.white,
+                            elevation: 0,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(8),
+                            ),
+                          ),
+                          child: const Text(
+                            'Log In',
+                            style: TextStyle(fontSize: 15, fontWeight: FontWeight.w600),
                           ),
                         ),
-                      GlassTextField(
-                        controller: _emailController,
-                        placeholder: 'Email',
-                        keyboardType: TextInputType.emailAddress,
                       ),
-                      const SizedBox(height: 16),
-                      GlassTextField(
-                        controller: _passwordController,
-                        placeholder: 'Password',
-                        obscureText: true,
+                const SizedBox(height: 20),
+                // Forgot login details
+                Center(
+                  child: TextButton(
+                    onPressed: () {},
+                    child: RichText(
+                      text: const TextSpan(
+                        text: 'Forgot your login details? ',
+                        style: TextStyle(color: Color(0xFF9CA3AF), fontSize: 13),
+                        children: [
+                          TextSpan(
+                            text: 'Get help logging in.',
+                            style: TextStyle(color: Color(0xFF0F172A), fontWeight: FontWeight.w600),
+                          ),
+                        ],
                       ),
-                      const SizedBox(height: 24),
-                      _isLoading
-                          ? const Center(child: CircularProgressIndicator())
-                          : Column(
-                              crossAxisAlignment: CrossAxisAlignment.stretch,
-                              children: [
-                                GlassButton.custom(
-                                  onTap: _loginWithEmail,
-                                  height: 48,
-                                  shape: const LiquidRoundedRectangle(borderRadius: 12),
-                                  child: const Center(
-                                    child: Text('Login', style: TextStyle(color: Color(0xFF0F172A), fontWeight: FontWeight.bold)),
-                                  ),
-                                ),
-                                const SizedBox(height: 16),
-                                GlassButton.custom(
-                                  onTap: _loginWithGoogle,
-                                  height: 48,
-                                  shape: const LiquidRoundedRectangle(borderRadius: 12),
-                                  child: const Center(
-                                    child: Text('Sign in with Google', style: TextStyle(color: Color(0xFF0F172A), fontWeight: FontWeight.bold)),
-                                  ),
-                                ),
-                                const SizedBox(height: 16),
-                                TextButton(
-                                  onPressed: () => context.go('/signup'),
-                                  child: const Text("Don't have an account? Sign up", style: TextStyle(color: Color(0xFF64748B))),
-                                ),
-                              ],
-                            ),
-                    ],
+                    ),
                   ),
                 ),
-              ),
+                const SizedBox(height: 24),
+                // OR Divider
+                Row(
+                  children: const [
+                    Expanded(child: Divider(color: Color(0xFFE5E7EB), thickness: 1)),
+                    Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 16.0),
+                      child: Text(
+                        'OR',
+                        style: TextStyle(color: Color(0xFF9CA3AF), fontSize: 13, fontWeight: FontWeight.w600),
+                      ),
+                    ),
+                    Expanded(child: Divider(color: Color(0xFFE5E7EB), thickness: 1)),
+                  ],
+                ),
+                const SizedBox(height: 24),
+                // Log in with Google
+                Center(
+                  child: TextButton.icon(
+                    onPressed: _loginWithGoogle,
+                    icon: const Icon(Icons.g_mobiledata, color: Color(0xFF0095F6), size: 28),
+                    label: const Text(
+                      'Log in with Google',
+                      style: TextStyle(color: Color(0xFF0095F6), fontWeight: FontWeight.w600, fontSize: 14),
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 60),
+                // Footer: Don't have an account? Sign up
+                Container(
+                  padding: const EdgeInsets.symmetric(vertical: 16),
+                  decoration: const BoxDecoration(
+                    border: Border(top: BorderSide(color: Color(0xFFE5E7EB), width: 1)),
+                  ),
+                  child: Center(
+                    child: GestureDetector(
+                      onTap: () => context.go('/signup'),
+                      child: RichText(
+                        text: const TextSpan(
+                          text: "Don't have an account? ",
+                          style: TextStyle(color: Color(0xFF64748B), fontSize: 14),
+                          children: [
+                            TextSpan(
+                              text: 'Sign up.',
+                              style: TextStyle(color: Color(0xFF0095F6), fontWeight: FontWeight.w600),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              ],
             ),
           ),
         ),

@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "14207124952",
+    "project_id": "intelliops-4f1ca",
+    "storage_bucket": "intelliops-4f1ca.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:14207124952:android:f5b83eac3340387af65ead",
+        "android_client_info": {
+          "package_name": "com.example.intelli_ops"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "14207124952-vd8r9e3obqdkodud20m15mmc4fuvghb3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCUAyJj2d89khRZXV0gn3nr-l3UKxP4lOM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "14207124952-vd8r9e3obqdkodud20m15mmc4fuvghb3.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
