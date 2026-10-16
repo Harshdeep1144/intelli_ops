@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lucide_icons_flutter/lucide_icons.dart';
+import 'package:liquid_glass_widgets/liquid_glass_widgets.dart';
 
 class AiInsightCard extends StatelessWidget {
   final String title;
@@ -14,14 +15,14 @@ class AiInsightCard extends StatelessWidget {
     required this.title,
     required this.description,
     this.icon = LucideIcons.sparkles,
-    this.iconColor = const Color(0xFF3B82F6), // Secondary color from theme
+    this.iconColor = const Color(0xFF3B82F6),
     this.onActionPressed,
     this.actionText,
   });
 
   @override
   Widget build(BuildContext context) {
-    return Card(
+    return GlassCard(
       margin: const EdgeInsets.only(bottom: 16.0),
       child: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -48,12 +49,13 @@ class AiInsightCard extends StatelessWidget {
                     title,
                     style: Theme.of(context).textTheme.titleMedium?.copyWith(
                           fontWeight: FontWeight.bold,
+                          color: const Color(0xFF0F172A),
                         ),
                   ),
                 ),
-                Icon(
+                const Icon(
                   LucideIcons.moreHorizontal,
-                  color: Theme.of(context).colorScheme.onSurfaceVariant,
+                  color: Color(0xFF64748B),
                   size: 20,
                 ),
               ],
@@ -62,7 +64,7 @@ class AiInsightCard extends StatelessWidget {
             Text(
               description,
               style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                    color: Theme.of(context).colorScheme.onSurfaceVariant,
+                    color: const Color(0xFF64748B),
                   ),
             ),
             if (actionText != null && onActionPressed != null) ...[
@@ -71,8 +73,8 @@ class AiInsightCard extends StatelessWidget {
                 alignment: Alignment.centerRight,
                 child: TextButton.icon(
                   onPressed: onActionPressed,
-                  icon: const Icon(LucideIcons.arrowRight, size: 16),
-                  label: Text(actionText!),
+                  icon: const Icon(LucideIcons.arrowRight, size: 16, color: Color(0xFF1E3A8A)),
+                  label: Text(actionText!, style: const TextStyle(color: Color(0xFF1E3A8A), fontWeight: FontWeight.w600)),
                 ),
               ),
             ]

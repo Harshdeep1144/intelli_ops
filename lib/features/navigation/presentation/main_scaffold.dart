@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:lucide_icons_flutter/lucide_icons.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:liquid_glass_widgets/liquid_glass_widgets.dart';
 import '../../auth/data/auth_repository.dart';
 
 class MainScaffold extends ConsumerWidget {
@@ -21,12 +22,15 @@ class MainScaffold extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('IntelliOps'),
+    return GlassScaffold(
+      settings: LiquidGlassSettings.ios27Light,
+      edgeToEdge: true,
+      statusBarStyle: GlassStatusBarStyle.dark,
+      backgroundColor: Colors.white,
+      appBar: GlassAppBar(
         actions: [
           IconButton(
-            icon: const Icon(LucideIcons.logOut),
+            icon: const Icon(LucideIcons.logOut, color: Color(0xFF0F172A)),
             onPressed: () async {
               await ref.read(authRepositoryProvider).signOut();
             },
@@ -35,29 +39,25 @@ class MainScaffold extends ConsumerWidget {
         ],
       ),
       body: navigationShell,
-      bottomNavigationBar: NavigationBar(
+      bottomBar: GlassTabBar.bottom(
+        settings: LiquidGlassSettings.ios27Light,
         selectedIndex: navigationShell.currentIndex,
-        onDestinationSelected: _goBranch,
-        destinations: const [
-          NavigationDestination(
+        onTabSelected: _goBranch,
+        tabs: const [
+          GlassTab(
             icon: Icon(LucideIcons.layoutDashboard),
-            label: 'Dashboard',
           ),
-          NavigationDestination(
+          GlassTab(
             icon: Icon(LucideIcons.folderKanban),
-            label: 'Projects',
           ),
-          NavigationDestination(
+          GlassTab(
             icon: Icon(LucideIcons.users),
-            label: 'Employees',
           ),
-          NavigationDestination(
+          GlassTab(
             icon: Icon(LucideIcons.calendar),
-            label: 'Meetings',
           ),
-          NavigationDestination(
+          GlassTab(
             icon: Icon(LucideIcons.sparkles),
-            label: 'AI Assistant',
           ),
         ],
       ),

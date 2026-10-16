@@ -42,6 +42,8 @@ dependencies:
   firebase_core: ^4.15.0
   firebase_auth: ^6.7.0
   google_sign_in: ^7.2.0
+  adaptive_platform_ui: ^1.0.2
+  liquid_glass_widgets: ^1.13.0
 dev_dependencies:
   flutter_test:
     sdk: flutter
