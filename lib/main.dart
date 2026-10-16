@@ -1,9 +1,20 @@
-import 'package:material_ui/material_ui.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'core/theme/app_theme.dart';
 import 'core/routing/app_router.dart';
 
-void main() {
+import 'package:firebase_core/firebase_core.dart';
+import 'firebase_options.dart';
+
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  try {
+    await Firebase.initializeApp(
+      options: DefaultFirebaseOptions.currentPlatform,
+    );
+  } catch (e) {
+    // If firebase_options.dart is missing or not configured properly.
+  }
   runApp(
     const ProviderScope(
       child: MyApp(),
@@ -16,10 +27,11 @@ class MyApp extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final router = ref.watch(routerProvider);
     return MaterialApp.router(
       title: 'IntelliOps AI',
       theme: AppTheme.lightTheme,
-      routerConfig: goRouter,
+      routerConfig: router,
       debugShowCheckedModeBanner: false,
     );
   }

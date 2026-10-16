@@ -1,4 +1,4 @@
-import 'package:material_ui/material_ui.dart';
+import 'package:flutter/material.dart';
 
 class ProjectsScreen extends StatelessWidget {
   const ProjectsScreen({super.key});
